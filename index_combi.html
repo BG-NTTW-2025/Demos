@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demos</title>
+  <style>
+    body {
+      background-color: rgb(161, 160, 236);
+      color: black;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+#demoAfbeelding {
+  width: 430px !important;
+  height: 300px !important;
+  object-fit: fill;
+  max-width: none !important;
+  max-height: none !important;
+  display: block;
+}
+
+
+    h1 {
+      font-size: 2em;
+      margin-top: 10px;
+    }
+
+    /* Popup */
+    #bootPopup {
+      display: none;
+      position: fixed;
+      top: 50px;
+      left: 75px;
+      width: 650px;
+      height: 400px;
+      background-color: #646464;
+      border: 0px solid #646464;
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+      z-index: 100;
+    }
+
+    /* Knoppen links */
+    .knop {
+      position: absolute;
+      left: 10px;
+      width: 100px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+    #knopVolgende { top: 50px; }
+    #knopVorige { top: 90px; }
+    #knopStap { top: 200px; }
+    #knopTerug { top: 240px; }
+    #knopAfsluiten { top: 360px; }
+
+    /* Demo-afbeelding */
+    #demoAfbeelding {
+      position: absolute;
+      top: 50px;
+      left: 150px;
+      width: 430px;
+      height: 300px;
+      border: 0px solid #ccc;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    #infoAfbeelding {
+      position: absolute;
+      top: 25px;
+      right: -520px;
+      width: 560px;
+      height: 360px;
+      transition: right 0.5s ease;
+      cursor: pointer;
+      z-index: 9999;
+	      }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <img src="DemoLogo.gif" alt="Logo">
+  <table style="text-align: left; width: 100%;" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr align="center">
+        <!-- Popup vervanger knop -->
+<td>
+  <img
+    style="border: 0px solid; width: 250px; height: 30px; cursor: pointer;"
+    alt="db1"
+    src="db1.jpg"
+    onclick="openBootDemo()"
+  ><br>
+</td>
+
+
+      </tr>
+      <tr align="center">
+        <td>
+          <a href="https://bg-nttw-2025.github.io/Menu/">
+            <img style="border: 0px solid ; width: 250px; height: 30px;" alt="db4" src="db4.jpg">
+          </a><br>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- POPUP -->
+<div id="bootPopup">
+  <!-- Knoppen -->
+  <img src="volgende.jpg" class="knop" id="knopVolgende" onclick="volgendeDemo()">
+  <img src="vorige.jpg" class="knop" id="knopVorige" onclick="vorigeDemo()">
+  <img src="stapvoorstap.jpg" class="knop" id="knopStap" onclick="stapVooruit()">
+  <img src="terug.jpg" class="knop" id="knopTerug" onclick="stapAchteruit()">
+  <img src="afsluiten.jpg" class="knop" id="knopAfsluiten" onclick="sluitBootDemo()">
+  <img id="infoAfbeelding" src="bootinfo.gif" alt="Informatie" >
+
+  <img id="demoAfbeelding" src="" alt="Bootstap">
+</div>
+
+<script>
+  const bootBeelden_A = [
+    "boot1.jpg", "boot2.jpg", "boot3.jpg", "boot4.jpg", "boot5.jpg",
+    "boot6.jpg", "boot7.jpg", "boot8.jpg", "boot9.jpg", "boot10.jpg"
+  ];
+  const bootBeelden_B = [
+    "boot1b.jpg", "boot2b.jpg", "boot3b.jpg", "boot4b.jpg", "boot5b.jpg",
+    "boot6b.jpg", "boot7b.jpg", "boot8b.jpg", "boot9b.jpg", "boot10b.jpg",
+    "boot11b.jpg", "boot12b.jpg", "boot13b.jpg"
+  ];
+
+  let huidigeDemoIndex = 0;
+  let stapIndex = 0;
+
+  function openBootDemo() {
+    huidigeDemoIndex = 0;
+    stapIndex = 0;
+    document.getElementById("bootPopup").style.display = "block";
+    updateAfbeelding();
+  }
+
+  function sluitBootDemo() {
+    document.getElementById("bootPopup").style.display = "none";
+  }
+
+  function updateAfbeelding() {
+    const beelden = huidigeDemoIndex === 0 ? bootBeelden_A : bootBeelden_B;
+    document.getElementById("demoAfbeelding").src = beelden[stapIndex];
+  }
+
+  function volgendeDemo() {
+    huidigeDemoIndex = huidigeDemoIndex < 1 ? 1 : 0;
+    stapIndex = 0;
+    updateAfbeelding();
+  }
+
+  function vorigeDemo() {
+    huidigeDemoIndex = huidigeDemoIndex > 0 ? 0 : 1;
+    stapIndex = 0;
+    updateAfbeelding();
+  }
+
+  function stapVooruit() {
+    const beelden = huidigeDemoIndex === 0 ? bootBeelden_A : bootBeelden_B;
+    if (stapIndex < beelden.length - 1) {
+      stapIndex++;
+      updateAfbeelding();
+    }
+  }
+
+  function stapAchteruit() {
+    if (stapIndex > 0) {
+      stapIndex--;
+      updateAfbeelding();
+    }
+  }
+
+</script>
+
+</body>
+</html>
