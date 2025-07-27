@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demos</title>
-  <style>
+<html  lang="nl">
+  <head>
+    <meta  content="text/html; charset=UTF-8"  http-equiv="content-type">
+    <meta  name="viewport"  content="width=device-width, initial-scale=1.0">
+    <title>Demos</title>
+    <style>
     body {
       background-color: rgb(161, 160, 236);
       color: black;
@@ -87,51 +87,38 @@
       z-index: 9999;
 	      }
   </style>
-</head>
-<body>
-
-<div class="container">
-  <img src="DemoLogo.gif" alt="Logo">
-  <table style="text-align: left; width: 100%;" border="0" cellpadding="0" cellspacing="0">
-    <tbody>
-      <tr align="center">
-        <!-- Popup vervanger knop -->
-<td>
-  <img
-    style="border: 0px solid; width: 250px; height: 30px; cursor: pointer;"
-    alt="db1"
-    src="db1.jpg"
-    onclick="openBootDemo()"
-  ><br>
-</td>
-
-
-      </tr>
-      <tr align="center">
-        <td>
-          <a href="https://bg-nttw-2025.github.io/Menu/">
-            <img style="border: 0px solid ; width: 250px; height: 30px;" alt="db4" src="db4.jpg">
-          </a><br>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- POPUP -->
-<div id="bootPopup">
-  <!-- Knoppen -->
-  <img src="volgende.jpg" class="knop" id="knopVolgende" onclick="volgendeDemo()">
-  <img src="vorige.jpg" class="knop" id="knopVorige" onclick="vorigeDemo()">
-  <img src="stapvoorstap.jpg" class="knop" id="knopStap" onclick="stapVooruit()">
-  <img src="terug.jpg" class="knop" id="knopTerug" onclick="stapAchteruit()">
-  <img src="afsluiten.jpg" class="knop" id="knopAfsluiten" onclick="sluitBootDemo()">
-  <img id="infoAfbeelding" src="bootinfo.gif" alt="Informatie" >
-
-  <img id="demoAfbeelding" src="" alt="Bootstap">
-</div>
-
-<script>
+  </head>
+  <body>
+    <div  class="container"> <img  src="DemoLogo.gif"  alt="Logo">
+      <p>Demo's en Uitleg zijn niet geoptimaliseerd voor mobiele apparaten –
+        gebruik bij voorkeur een pc of laptop.</p>
+      <table  style="text-align: left; width: 100%;"  border="0"  cellpadding="0"
+         cellspacing="0">
+        <tbody>
+          <tr  align="center">
+            <!-- Popup vervanger knop -->
+            <td> <img  style="border: 0px solid; width: 250px; height: 30px; cursor: pointer;"
+                 alt="db1"  src="db1.jpg"  onclick="openBootDemo()"><br>
+            </td>
+          </tr>
+          <tr  align="center">
+            <td> <a  href="https://bg-nttw-2025.github.io/Menu/"> <img  style="border: 0px solid ; width: 250px; height: 30px;"
+                   alt="db4"  src="db4.jpg"> </a><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- POPUP -->
+    <div  id="bootPopup">
+      <!-- Knoppen --> <img  src="volgende.jpg"  class="knop"  id="knopVolgende"
+         onclick="volgendeDemo()"> <img  src="vorige.jpg"  class="knop"  id="knopVorige"
+         onclick="vorigeDemo()"> <img  src="stapvoorstap.jpg"  class="knop"  id="knopStap"
+         onclick="stapVooruit()"> <img  src="terug.jpg"  class="knop"  id="knopTerug"
+         onclick="stapAchteruit()"> <img  src="afsluiten.jpg"  class="knop"  id="knopAfsluiten"
+         onclick="sluitBootDemo()"> <img  id="infoAfbeelding"  src="bootinfo.gif"
+         alt="Informatie"> <img  id="demoAfbeelding"  src=""  alt="Bootstap"> </div>
+    <script>
   const bootBeelden_A = [
     "boot1.jpg", "boot2.jpg", "boot3.jpg", "boot4.jpg", "boot5.jpg",
     "boot6.jpg", "boot7.jpg", "boot8.jpg", "boot9.jpg", "boot10.jpg"
@@ -140,6 +127,11 @@
     "boot1b.jpg", "boot2b.jpg", "boot3b.jpg", "boot4b.jpg", "boot5b.jpg",
     "boot6b.jpg", "boot7b.jpg", "boot8b.jpg", "boot9b.jpg", "boot10b.jpg",
     "boot11b.jpg", "boot12b.jpg", "boot13b.jpg"
+  ];
+const bootBeelden_C = [	
+    "boot1c.jpg",	"boot2c.jpg",	"boot3c.jpg",	"boot4c.jpg",	"boot5c.jpg",
+	"boot6c.jpg",	"boot7c.jpg",	"boot8c.jpg",	"boot9c.jpg",	"boot10c.jpg",	
+	"boot11c.jpg"
   ];
 
   let huidigeDemoIndex = 0;
@@ -156,39 +148,51 @@
     document.getElementById("bootPopup").style.display = "none";
   }
 
-  function updateAfbeelding() {
-    const beelden = huidigeDemoIndex === 0 ? bootBeelden_A : bootBeelden_B;
-    document.getElementById("demoAfbeelding").src = beelden[stapIndex];
-  }
+function updateAfbeelding() {
+  let beelden;
+  if (huidigeDemoIndex === 0) beelden = bootBeelden_A;
+  else if (huidigeDemoIndex === 1) beelden = bootBeelden_B;
+  else beelden = bootBeelden_C;
 
-  function volgendeDemo() {
-    huidigeDemoIndex = huidigeDemoIndex < 1 ? 1 : 0;
-    stapIndex = 0;
+  document.getElementById("demoAfbeelding").src = beelden[stapIndex];
+}
+
+function volgendeDemo() {
+  huidigeDemoIndex = (huidigeDemoIndex + 1) % 3; // 0 → 1 → 2 → 0
+  stapIndex = 0;
+  updateAfbeelding();
+}
+
+
+function vorigeDemo() {
+  huidigeDemoIndex = (huidigeDemoIndex - 1 + 3) % 3; // 2 → 1 → 0 → 2
+  stapIndex = 0;
+  updateAfbeelding();
+}
+
+function stapVooruit() {
+  let beelden;
+  if (huidigeDemoIndex === 0) beelden = bootBeelden_A;
+  else if (huidigeDemoIndex === 1) beelden = bootBeelden_B;
+  else beelden = bootBeelden_C;
+
+  if (stapIndex < beelden.length - 1) {
+    stapIndex++;
     updateAfbeelding();
   }
+}
+function stapAchteruit() {
+  let beelden;
+  if (huidigeDemoIndex === 0) beelden = bootBeelden_A;
+  else if (huidigeDemoIndex === 1) beelden = bootBeelden_B;
+  else beelden = bootBeelden_C;
 
-  function vorigeDemo() {
-    huidigeDemoIndex = huidigeDemoIndex > 0 ? 0 : 1;
-    stapIndex = 0;
+  if (stapIndex > 0) {
+    stapIndex--;
     updateAfbeelding();
   }
+}
 
-  function stapVooruit() {
-    const beelden = huidigeDemoIndex === 0 ? bootBeelden_A : bootBeelden_B;
-    if (stapIndex < beelden.length - 1) {
-      stapIndex++;
-      updateAfbeelding();
-    }
-  }
 
-  function stapAchteruit() {
-    if (stapIndex > 0) {
-      stapIndex--;
-      updateAfbeelding();
-    }
-  }
-
-</script>
-
-</body>
+</script> </body>
 </html>
