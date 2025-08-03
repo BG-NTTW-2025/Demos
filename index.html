@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demos</title>
+    <style>
+      body {
+        background-color: rgb(161, 160, 236);
+        color: black;
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2em;
+        margin-top: 10px;
+      }
+
+      #bootPopup {
+        display: none;
+        position: fixed;
+        top: 50px;
+        left: 75px;
+        width: 650px;
+        height: 400px;
+        background-color: #646464;
+        border: 0px solid #646464;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        z-index: 100;
+      }
+
+      .knop {
+        position: absolute;
+        left: 10px;
+        width: 100px;
+        height: 30px;
+        cursor: pointer;
+      }
+
+      #knopVolgende { top: 50px; }
+      #knopVorige { top: 90px; }
+      #knopStap { top: 200px; }
+      #knopTerug { top: 240px; }
+      #knopAfsluiten { top: 360px; }
+
+      .fadeImage {
+        position: absolute;
+        top: 50px;
+        left: 150px;
+        width: 430px;
+        height: 300px;
+        object-fit: contain;
+        background: #fff;
+        transition: opacity 0.5s ease;
+        opacity: 0;
+        z-index: 1;
+      }
+
+      .fadeImage.visible {
+        opacity: 1;
+        z-index: 2;
+      }
+
+      #infoAfbeelding {
+        position: absolute;
+        top: 25px;
+        right: -520px;
+        width: 560px;
+        height: 360px;
+        transition: right 0.5s ease;
+        cursor: pointer;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="DemoLogo.gif" alt="Logo">
+      <p>Demo's en Uitleg zijn niet geoptimaliseerd voor mobiele apparaten – gebruik bij voorkeur een pc of laptop.</p>
+      <table style="text-align: left; width: 100%;" border="0" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr align="center">
+            <td>
+              <img style="border: 0px solid; width: 250px; height: 30px; cursor: pointer;" alt="db1" src="db1.jpg" onclick="openBootDemo()"><br>
+            </td>
+          </tr>
+          <tr align="center">
+            <td>
+              <a href="https://bg-nttw-2025.github.io/Downloads/">
+                <img style="border: 0px solid; width: 250px; height: 30px;" alt="db18" src="db18.jpg">
+              </a><br>
+            </td>
+          </tr>
+          <tr align="center">
+            <td>
+              <a href="https://bg-nttw-2025.github.io/Menu/">
+                <img style="border: 0px solid; width: 250px; height: 30px;" alt="db4" src="db4.jpg">
+              </a><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- POPUP -->
+    <div id="bootPopup">
+      <img src="volgende.jpg" class="knop" id="knopVolgende" onclick="volgendeDemo()">
+      <img src="vorige.jpg" class="knop" id="knopVorige" onclick="vorigeDemo()">
+      <img src="stapvoorstap.jpg" class="knop" id="knopStap" onclick="stapVooruit()">
+      <img src="terug.jpg" class="knop" id="knopTerug" onclick="stapAchteruit()">
+      <img src="afsluiten.jpg" class="knop" id="knopAfsluiten" onclick="sluitBootDemo()">
+      <img id="infoAfbeelding" src="bootinfo.gif" alt="Informatie">
+      <img id="demoAfbeelding1" class="fadeImage" src="" alt="Bootstap">
+      <img id="demoAfbeelding2" class="fadeImage" src="" alt="Bootstap">
+    </div>
+
+    <script>
+      const bootBeelden_A = ["boot1a.jpg", "boot2a.jpg", "boot3a.jpg", "boot4a.jpg", "boot5a.jpg", "boot6a.jpg", "boot7a.jpg", "boot8a.jpg", "boot9a.jpg", "boot10a.jpg"];
+      const bootBeelden_B = ["boot1b.jpg", "boot2b.jpg", "boot3b.jpg", "boot4b.jpg", "boot5b.jpg", "boot6b.jpg", "boot7b.jpg", "boot8b.jpg", "boot9b.jpg", "boot10b.jpg", "boot11b.jpg", "boot12b.jpg", "boot13b.jpg"];
+      const bootBeelden_C = ["boot1c.jpg", "boot2c.jpg", "boot3c.jpg", "boot4c.jpg", "boot5c.jpg", "boot6c.jpg", "boot7c.jpg", "boot8c.jpg", "boot9c.jpg",
+	  "boot10c.jpg", "boot11c.jpg"];
+      const bootBeelden_D = ["boot1d.jpg", "boot2d.jpg", "boot3d.jpg", "boot4d.jpg", "boot5d.jpg", "boot6d.jpg", "boot7d.jpg", "boot8d.jpg", "boot9d.jpg", "boot10d.jpg", "boot11d.jpg"];
+      const bootBeelden_E = ["boot1e.jpg", "boot2e.jpg", "boot3e.jpg", "boot4e.jpg", "boot5e.jpg", "boot6e.jpg", "boot7e.jpg", "boot8e.jpg", "boot9e.jpg", "boot10e.jpg", "boot11e.jpg", "boot12e.jpg"];
+      const bootBeelden_F = ["boot1f.jpg", "boot2f.jpg", "boot3f.jpg", "boot4f.jpg", "boot5f.jpg", "boot6f.jpg", "boot7f.jpg", "boot8f.jpg", "boot9f.jpg",
+	  "boot10f.jpg", "boot11f.jpg", "boot12f.jpg", "boot13f.jpg", "boot14f.jpg", "boot15f.jpg", "boot16f.jpg", "boot17f.jpg", "boot18f.jpg", "boot19f.jpg",
+	  "boot20f.jpg", "boot21f.jpg", "boot22f.jpg", "boot23f.jpg"];
+      const bootBeelden_G = ["boot1g.jpg", "boot2g.jpg", "boot3g.jpg", "boot4g.jpg", "boot5g.jpg", "boot6g.jpg", "boot7g.jpg", "boot8g.jpg", "boot9g.jpg", "boot10g.jpg", "boot11g.jpg", "boot12g.jpg", "boot13g.jpg", "boot14g.jpg", "boot15g.jpg", "boot16g.jpg", "boot17g.jpg", "boot18g.jpg", "boot19g.jpg", "boot20g.jpg", "boot21g.jpg", "boot22g.jpg", "boot23g.jpg"];
+      const bootBeelden_H = ["boot1h.jpg", "boot2h.jpg", "boot3h.jpg", "boot4h.jpg", "boot5h.jpg", "boot6h.jpg", "boot7h.jpg", "boot8h.jpg", "boot9h.jpg", "boot10h.jpg", "boot11h.jpg", "boot12h.jpg", "boot13h.jpg", "boot14h.jpg", "boot15h.jpg", "boot16h.jpg", "boot17h.jpg", "boot18h.jpg", "boot19h.jpg", "boot20h.jpg", "boot21h.jpg"];
+
+      let huidigeDemoIndex = 0;
+      let stapIndex = 0;
+      let huidigImg = 1;
+
+      function openBootDemo() {
+        huidigeDemoIndex = 0;
+        stapIndex = 0;
+        document.getElementById("bootPopup").style.display = "block";
+        updateAfbeelding();
+      }
+
+      function sluitBootDemo() {
+        document.getElementById("bootPopup").style.display = "none";
+      }
+
+      function updateAfbeelding() {
+        let beelden;
+        if (huidigeDemoIndex === 0) beelden = bootBeelden_A;
+        else if (huidigeDemoIndex === 1) beelden = bootBeelden_B;
+        else if (huidigeDemoIndex === 2) beelden = bootBeelden_C;
+        else if (huidigeDemoIndex === 3) beelden = bootBeelden_D;
+        else if (huidigeDemoIndex === 4) beelden = bootBeelden_E;
+        else if (huidigeDemoIndex === 5) beelden = bootBeelden_F;
+        else if (huidigeDemoIndex === 6) beelden = bootBeelden_G;
+        else beelden = bootBeelden_H;
+
+        const img1 = document.getElementById("demoAfbeelding1");
+        const img2 = document.getElementById("demoAfbeelding2");
+        const nieuweBron = beelden[stapIndex];
+
+        if (huidigImg === 1) {
+          img2.src = nieuweBron;
+          img2.classList.add("visible");
+          img1.classList.remove("visible");
+          huidigImg = 2;
+        } else {
+          img1.src = nieuweBron;
+          img1.classList.add("visible");
+          img2.classList.remove("visible");
+          huidigImg = 1;
+        }
+      }
+
+      function volgendeDemo() {
+        huidigeDemoIndex = (huidigeDemoIndex + 1) % 8;
+        stapIndex = 0;
+        updateAfbeelding();
+      }
+
+      function vorigeDemo() {
+        huidigeDemoIndex = (huidigeDemoIndex - 1 + 8) % 8;
+        stapIndex = 0;
+        updateAfbeelding();
+      }
+
+      function stapVooruit() {
+        let beelden;
+        if (huidigeDemoIndex === 0) beelden = bootBeelden_A;
+        else if (huidigeDemoIndex === 1) beelden = bootBeelden_B;
+        else if (huidigeDemoIndex === 2) beelden = bootBeelden_C;
+        else if (huidigeDemoIndex === 3) beelden = bootBeelden_D;
+        else if (huidigeDemoIndex === 4) beelden = bootBeelden_E;
+        else if (huidigeDemoIndex === 5) beelden = bootBeelden_F;
+        else if (huidigeDemoIndex === 6) beelden = bootBeelden_G;
+        else beelden = bootBeelden_H;
+
+        if (stapIndex < beelden.length - 1) {
+          stapIndex++;
+          updateAfbeelding();
+        }
+      }
+
+      function stapAchteruit() {
+        let beelden;
+        if (huidigeDemoIndex === 0) beelden = bootBeelden_A;
+        else if (huidigeDemoIndex === 1) beelden = bootBeelden_B;
+        else if (huidigeDemoIndex === 2) beelden = bootBeelden_C;
+        else if (huidigeDemoIndex === 3) beelden = bootBeelden_D;
+        else if (huidigeDemoIndex === 4) beelden = bootBeelden_E;
+        else if (huidigeDemoIndex === 5) beelden = bootBeelden_F;
+        else if (huidigeDemoIndex === 6) beelden = bootBeelden_G;
+        else beelden = bootBeelden_H;
+
+        if (stapIndex > 0) {
+          stapIndex--;
+          updateAfbeelding();
+        }
+      }
+    </script>
+  </body>
+</html>
